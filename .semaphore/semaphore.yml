@@ -4,7 +4,7 @@ version: v1.0
 # Name your pipeline. In case you connect multiple pipelines with promotions,
 # the name will help you differentiate between, for example, a CI build phase
 # and delivery phases.
-name: Demo Rails 5 app
+name: CRM App
 
 # An agent defines the environment in which your code runs.
 # It is a combination of one of available machine types and operating
@@ -29,7 +29,7 @@ global_job_config:
       # Read about caching: https://docs.semaphoreci.com/article/149-caching
       - cache restore
       # Set Ruby version:
-      - sem-version ruby 2.6.0
+      - sem-version ruby 2.7.1
       - bundle install --deployment -j 4 --path vendor/bundle
 
 
