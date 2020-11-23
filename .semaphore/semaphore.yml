@@ -74,6 +74,7 @@ blocks:
           - sem-service start postgres
           - psql -U postgres -h localhost -c "CREATE USER semaphore with password 'sempahore'"
           - psql -U postgres -h localhost -c "ALTER USER semaphore WITH SUPERUSER;"
+          - bundle exec rails db:setup
           - bundle exec rails db:schema:load
 
       jobs:
