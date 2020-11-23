@@ -72,6 +72,8 @@ blocks:
       prologue:
         commands:
           - sem-service start postgres
+          - psql -U postgres -h localhost -c "CREATE USER semaphore with password 'sempahore'"
+          - psql -U postgres -h localhost -c "ALTER USER semaphore WITH SUPERUSER;"
           - bundle exec rake db:setup
 
       jobs:
