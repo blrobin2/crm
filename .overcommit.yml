@@ -1,0 +1,34 @@
+CommitMsg:
+  HardTabs:
+    enabled: true
+
+PreCommit:
+  BundleAudit:
+    enabled: true
+    flags: ['--update']
+    on_warn: fail
+    command: ['bundle', 'exec', 'bundle-audit']
+
+  BundleCheck:
+    enabled: true
+
+  RuboCop:
+    enabled: true
+    on_warn: fail
+    command: ['bundle', 'exec', 'rubocop']
+
+  RailsSchemaUpToDate:
+    enabled: true
+
+  TrailingWhitespace:
+    enabled: true
+    exclude:
+      - '**/db/structure.sql'
+
+  HardTabs:
+    enabled: true
+
+PrePush:
+  Brakeman:
+    enabled: true
+    command: ['bundle', 'exec', 'brakeman']
