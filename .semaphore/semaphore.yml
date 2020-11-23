@@ -66,9 +66,6 @@ blocks:
       - Setup
      # - Code scanning
     task:
-      # This block runs two jobs in parallel and they both share common
-      # setup steps. We can group them in a prologue.
-      # See https://docs.semaphoreci.com/article/50-pipeline-yaml#prologue
       prologue:
         commands:
           - sem-service start postgres
@@ -81,10 +78,6 @@ blocks:
       - name: RSpec - model tests
         commands:
           - bundle exec rspec spec/models
-
-      - name: RSpec - controller tests
-        commands:
-          - bundle exec rspec spec/controllers
 
   # Note that it's possible to define an agent on a per-block level.
   # For example, if your integration tests need more RAM, you could override
@@ -99,4 +92,5 @@ blocks:
         commands:
           - sem-service start postgres
           - bundle exec rake db:setup
+          - bundle exec rails db:schema:load
           - bundle exec rspec spec/features
