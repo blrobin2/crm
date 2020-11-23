@@ -62,8 +62,8 @@ blocks:
   #           - bundle exec brakeman
 
   - name: Unit tests
-    dependencies:
-      - Code scanning
+    # dependencies:
+    #   - Code scanning
     task:
       # This block runs two jobs in parallel and they both share common
       # setup steps. We can group them in a prologue.
