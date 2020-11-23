@@ -51,15 +51,15 @@ blocks:
           # to be used in next blocks and future workflows:
           - cache store
 
-  - name: Code scanning
-    dependencies:
-      - Setup
-    task:
-      jobs:
-        - name: check style + security
-          commands:
-            - bundle exec rubocop
-            - bundle exec brakeman
+  # - name: Code scanning
+  #   dependencies:
+  #     - Setup
+  #   task:
+  #     jobs:
+  #       - name: check style + security
+  #         commands:
+  #           - bundle exec rubocop --config
+  #           - bundle exec brakeman
 
   - name: Unit tests
     dependencies:
