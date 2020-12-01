@@ -3,13 +3,15 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
+gem 'active_type'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'enumerations'
+gem 'figaro'
 gem 'honeybadger', '~> 4.0'
 gem 'jsonapi_parameters'
-gem 'jsonapi-serializer'
 gem 'json_api_responders'
+gem 'jsonapi-serializer'
 gem 'jwt'
 gem 'kaminari'
 gem 'memoist'
@@ -42,8 +44,8 @@ end
 
 group :test do
   gem 'fivemat'
-  gem 'json-schema'
   gem 'json_matchers'
+  gem 'json-schema'
   gem 'shoulda-matchers'
   gem 'timecop'
   gem 'vcr'

@@ -43,4 +43,5 @@ AllCops:
     - 'config/**/*.rb'
     - 'bin/**'
     - 'vendor/**'
+    - 'client/**'
   NewCops: enable

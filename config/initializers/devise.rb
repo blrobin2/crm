@@ -277,10 +277,16 @@ Devise.setup do |config|
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
   #
-  # config.warden do |manager|
-  #   manager.intercept_401 = false
-  #   manager.default_strategies(scope: :user).unshift :some_external_strategy
-  # end
+  config.warden do |manager|
+    # Register JWT Strategy
+    manager.strategies.add(:jwt, Devise::Strategies::JsonWebToken)
+
+    # Add the new JWT Stratefy to the top of Warden's list
+    manager.default_strategies(scope: :user).unshift :jwt
+    manager.failure_app = Devise::Failures::JwtAuthFailure
+  end
+
+
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine

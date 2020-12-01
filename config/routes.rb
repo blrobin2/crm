@@ -1,3 +1,17 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  devise_for :users, only: [:sessions]
+
+  namespace :api do
+    namespace :v1 do
+      devise_scope :user do
+        scope module: :auth do
+          resource :sessions, only: [:create, :destroy]
+        end
+      end
+    end
+  end
+
+  # get '*path', to: "application#fallback_index_html", constraints: ->(request) do
+  #   !request.xhr? && request.format.html?
+  # end
 end
