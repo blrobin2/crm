@@ -10,7 +10,7 @@ class SessionForm < ActiveType::Object
   delegate :first_name, :last_name, to: :user
 
   def valid?(args)
-    super && user.persisted?
+    super && user&.persisted?
   end
 
   def user
@@ -24,7 +24,7 @@ class SessionForm < ActiveType::Object
   private
 
   def valid_password?
-    return if user.valid_password?(password)
+    return if user&.valid_password?(password)
 
     errors.add(:base, 'Email and password do not match')
   end

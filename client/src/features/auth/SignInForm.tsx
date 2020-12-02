@@ -32,6 +32,21 @@ const onFormSubmit = (dispatch: AppDispatch) => async (
   }
 };
 
+type FormGroupArgs = {
+  id: string;
+  type: string;
+  name: string;
+  autoComplete?: string;
+}
+
+const FormGroup = ({ id, name, autoComplete, type = 'text' }: FormGroupArgs) => (
+  <div className="form-group">
+    <label htmlFor={id}>{name}</label>
+    <Field type={type} name={id} id={id} autoComplete={autoComplete} className="form-control" />
+    <ErrorMessage name={id} component="div" className="text-danger" />
+  </div>
+);
+
 export const SignInForm = ({ handleFormSubmit = onFormSubmit }) => {
   const dispatch = useDispatch()
   const authError = useSelector(selectAuthError);
@@ -59,17 +74,8 @@ export const SignInForm = ({ handleFormSubmit = onFormSubmit }) => {
       >
         {({ isSubmitting }) => (
           <Form className="form">
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <Field type="email" name="email" id="email" autoComplete="username" className="form-control" />
-              <ErrorMessage name="email" component="div" className="text-danger" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <Field type="password" name="password" id="password" autoComplete="current-password" className="form-control" />
-              <ErrorMessage name="password" component="div" className="text-danger" />
-            </div>
-
+            <FormGroup id="email" type="email" name="Email" autoComplete="username" />
+            <FormGroup id="password" type="password" name="Password" autoComplete="current-password" />
             <button type="submit" disabled={isSubmitting} className="btn btn-success">
               Submit
             </button>
