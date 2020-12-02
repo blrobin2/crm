@@ -60,14 +60,15 @@ blocks:
           - bundle exec rails db:schema:load
 
       jobs:
-      - name: RSpec - model tests
+      - name: RSpec - backend tests
         commands:
           - bundle exec rspec
-  - name: Integration tests
+
+  - name: Frontend tests
     dependencies:
-      - Unit tests
+      - Backend Tests
     task:
       jobs:
-      - name: RSpec - feature specs
+      - name: Jest - frontend tests
         commands:
           - yarn --cwd client test
