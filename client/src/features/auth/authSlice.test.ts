@@ -8,21 +8,19 @@ const mockStore = configureMockStore(getDefaultMiddleware())
 
 describe('authSlice', () => {
   describe('reducer', () => {
+    const initialState = {
+      token: null,
+      status: Status.IDLE,
+      error: null
+    };
+
     it('should return the initial state', () => {
-      expect(reducer(undefined, {})).toEqual({
-        token: null,
-        status: Status.IDLE,
-        error: null
-      });
+      expect(reducer(undefined, {})).toEqual(initialState);
     });
 
     it('should handle login/pending', () => {
       expect(
-        reducer({
-          token: null,
-          status: Status.IDLE,
-          error: null
-        }, {
+        reducer(initialState, {
           type: 'auth/login/pending'
         })
       ).toEqual({
@@ -35,11 +33,7 @@ describe('authSlice', () => {
     it('should handle login/fulfilled', () => {
       const token = 'some_token';
       expect(
-        reducer({
-          token: null,
-          status: Status.IDLE,
-          error: null
-        }, {
+        reducer(initialState, {
           type: 'auth/login/fulfilled',
           payload: token
         })
@@ -53,11 +47,7 @@ describe('authSlice', () => {
     it('should handle login/rejected', () => {
       const error = new Error('Some Error');
       expect(
-        reducer({
-          token: null,
-          status: Status.IDLE,
-          error: null
-        }, {
+        reducer(initialState, {
           type: 'auth/login/rejected',
           payload: error
         })
