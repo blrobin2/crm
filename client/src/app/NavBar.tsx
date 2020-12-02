@@ -7,20 +7,20 @@ import { push } from 'connected-react-router';
 import { selectAuthToken, logout } from '../features/auth/authSlice';
 import { AppDispatch } from './store';
 
+const onLogoutButtonClick = (dispatch: AppDispatch) => async () => {
+  try {
+    const resultAction = await dispatch(logout())
+    unwrapResult(resultAction)
+    dispatch(push('/'))
+  } catch (err) {
+    console.error(err);
+  }
+};
 
-export const NavBar = () => {
+export const NavBar = ({ handleLogoutButtonClick = onLogoutButtonClick }) => {
   const dispatch: AppDispatch = useDispatch();
   const authToken = useSelector(selectAuthToken);
 
-  const onLogoutButtonClick = async () => {
-    try {
-      const resultAction = await dispatch(logout())
-      unwrapResult(resultAction)
-      dispatch(push('/'))
-    } catch (err) {
-      console.error(err);
-    }
-  }
   const authenticatedNav = () => {
     if (!authToken) {
       return (<Link to="/sign-in" className="nav-link">Sign In</Link>);
@@ -28,7 +28,7 @@ export const NavBar = () => {
     return (
       <>
         <Link to="/users" className="nav-link">Users</Link>
-        <button className="btn btn-sm btn-info" onClick={onLogoutButtonClick}>Logout</button>
+        <button className="btn btn-sm btn-info" onClick={handleLogoutButtonClick(dispatch)}>Logout</button>
       </>
     )
   }
