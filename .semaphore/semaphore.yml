@@ -51,6 +51,9 @@ blocks:
     dependencies:
       - Setup
     task:
+      secrets:
+      - name: rails_secret
+
       prologue:
         commands:
           - sem-service start postgres
