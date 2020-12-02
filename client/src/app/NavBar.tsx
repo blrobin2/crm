@@ -21,12 +21,10 @@ export const NavBar = () => {
       console.error(err);
     }
   }
-
   const authenticatedNav = () => {
     if (!authToken) {
       return (<Link to="/sign-in" className="nav-link">Sign In</Link>);
     }
-
     return (
       <>
         <Link to="/users" className="nav-link">Users</Link>
@@ -34,7 +32,6 @@ export const NavBar = () => {
       </>
     )
   }
-
   return (
     <BNavBar bg="light" expand="md">
       <BNavBar.Brand href="/">CRM</BNavBar.Brand>

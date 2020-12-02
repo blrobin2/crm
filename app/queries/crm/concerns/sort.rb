@@ -1,25 +1,27 @@
 module Crm
   module Concerns
     module Sort
-      # rubocop:disable Metrics/MethodLength
       def sort_conditions
         return default_sort unless params[:sort]
 
         params[:sort].split(',').map do |sort_field|
           field = sort_field.delete('-')
           direction = sort_direction(sort_field)
-          Arel.sql(
-            if field.include?('.')
-              multiple_sort(field, direction)
-            elsif jsonb_field?(field)
-              jsonb_sort(field, direction)
-            else
-              usual_sort(field, direction)
-            end
-          )
+          handle_sort_field(field, direction)
         end
       end
-      # rubocop:enable Metrics/MethodLength
+
+      def handle_sort_field(field, direction)
+        Arel.sql(
+          if field.include?('.')
+            multiple_sort(field, direction)
+          elsif jsonb_field?(field)
+            jsonb_sort(field, direction)
+          else
+            usual_sort(field, direction)
+          end
+        )
+      end
 
       def mulitiple_sort(field, direction)
         relationship_name, relationship_attribute = field.split('.')

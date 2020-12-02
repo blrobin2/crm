@@ -30,16 +30,12 @@ global_job_config:
       - cache restore
       # Set Ruby version:
       - sem-version ruby 2.7.1
+      - sem-version node 14
       - bundle config set deployment 'true'
       - bundle config set path 'vendor/bundle'
       - bundle install -j 4
+      - yarn --cwd client install
 
-
-
-# Blocks are the heart of a pipeline and are executed sequentially.
-# Each block has a task that defines one or more jobs. Jobs define the
-# commands to execute.
-# See https://docs.semaphoreci.com/article/62-concepts
 blocks:
   - name: Setup
     dependencies: []
@@ -51,20 +47,9 @@ blocks:
           # to be used in next blocks and future workflows:
           - cache store
 
-  # - name: Code scanning
-  #   dependencies:
-  #     - Setup
-  #   task:
-  #     jobs:
-  #       - name: check style + security
-  #         commands:
-  #           - bundle exec rubocop --config
-  #           - bundle exec brakeman
-
-  - name: Unit tests
+  - name: Backend Tests
     dependencies:
       - Setup
-     # - Code scanning
     task:
       prologue:
         commands:
@@ -77,12 +62,7 @@ blocks:
       jobs:
       - name: RSpec - model tests
         commands:
-          - bundle exec rspec spec/models
-
-  # Note that it's possible to define an agent on a per-block level.
-  # For example, if your integration tests need more RAM, you could override
-  # agent configuration here to use e1-standard-8.
-  # See https://docs.semaphoreci.com/article/50-pipeline-yaml#agent-in-task
+          - bundle exec rspec
   - name: Integration tests
     dependencies:
       - Unit tests
@@ -90,7 +70,4 @@ blocks:
       jobs:
       - name: RSpec - feature specs
         commands:
-          - sem-service start postgres
-          - bundle exec rake db:setup
-          - bundle exec rails db:schema:load
-          - bundle exec rspec spec/features
+          - yarn --cwd client test

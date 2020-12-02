@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction, SerializedError } from "@reduxjs/toolkit";
 
 import { AppDispatch, RootState } from '../../app/store';
 import { Status } from "../../app/status";
@@ -32,7 +32,33 @@ export interface ApiErrors {
   errors: ApiError[]
 }
 
-export const login = createAsyncThunk<Token, UserCredentials, {}>('auth/login', async (credentials: UserCredentials, { rejectWithValue }) => {
+const getApiError = async (response: Response) => {
+  const responseAsJson: ApiErrors = await response.json();
+  return responseAsJson.errors[0].detail;
+};
+
+const handleApiRejection = <T>(
+  state: AuthState,
+  action: PayloadAction<
+    unknown,
+    string,
+    {
+      arg: T;
+      requestId: string;
+      aborted: boolean;
+      condition: boolean;
+    },
+    SerializedError
+  >
+) => {
+  state.status = Status.FAILED;
+  state.error = action.payload as string;
+};
+
+export const login = createAsyncThunk<Token, UserCredentials, {}>(
+  'auth/login',
+  async (credentials: UserCredentials, { rejectWithValue }
+) => {
   const body = {
     data: {
       type: 'sessions',
@@ -45,13 +71,14 @@ export const login = createAsyncThunk<Token, UserCredentials, {}>('auth/login', 
     method: 'post',
     credentials: 'include',
     headers: {
-      'Content-Type': 'application/vnd.api+json'
+      'Content-Type': 'application/vnd.api+json',
+      'Accept': 'application/vnd.api+json'
     },
     body: JSON.stringify(body)
   });
   if (response.status !== 201) {
-    const responseAsJson: ApiErrors = await response.json();
-    return rejectWithValue(responseAsJson.errors[0].detail);
+    const error = await getApiError(response);
+    return rejectWithValue(error);
   }
 
   return response.headers.get('authorization') as Token
@@ -71,13 +98,14 @@ export const logout = createAsyncThunk<
     credentials: 'include',
     headers: {
       'Content-Type': 'application/vnd.api+json',
+      'Accept': 'application/vnd.api+json',
       'Authorization': `Bearer ${token}`
     }
   });
 
   if (response.status !== 204) {
-    const responseAsJson: ApiErrors = await response.json();
-    return rejectWithValue(responseAsJson.errors[0].detail);
+    const error = await getApiError(response);
+    return rejectWithValue(error);
   }
 });
 
@@ -100,10 +128,7 @@ const authSlice = createSlice({
       state.error = null;
       state.token = action.payload;
     });
-    builder.addCase(login.rejected, (state: AuthState, action) => {
-      state.status = Status.FAILED;
-      state.error = action.payload as string;
-    });
+    builder.addCase(login.rejected, handleApiRejection);
 
     builder.addCase(logout.pending, state => {
       state.status = Status.LOADING;
@@ -113,10 +138,7 @@ const authSlice = createSlice({
       state.error = null;
       state.token = null;
     });
-    builder.addCase(logout.rejected, (state: AuthState, action) => {
-      state.status = Status.FAILED;
-      state.error = action.payload as string;
-    });
+    builder.addCase(logout.rejected, handleApiRejection);
   }
 });
 

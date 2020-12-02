@@ -13,7 +13,7 @@ describe 'Logout' do
     end
 
     it 'changes users jti_claims after logout', :dox do
-      expect { logout_user }.to change(user.reload.jti_claims.size)
+      expect { logout_user }.to(change { user.reload.jti_claims.size })
     end
   end
 
