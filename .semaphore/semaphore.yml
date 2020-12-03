@@ -30,11 +30,9 @@ global_job_config:
       - cache restore
       # Set Ruby version:
       - sem-version ruby 2.7.1
-      - sem-version node 14
       - bundle config set deployment 'true'
       - bundle config set path 'vendor/bundle'
       - bundle install -j 4
-      - yarn --cwd client install
       - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - chmod +x ./cc-test-reporter
       - ./cc-test-reporter before-build
@@ -77,6 +75,11 @@ blocks:
     dependencies:
       - Backend Tests
     task:
+      prologue:
+        commands:
+          - sem-version node 14
+          - yarn --cwd client install
+
       jobs:
       - name: Jest - frontend tests
         commands:

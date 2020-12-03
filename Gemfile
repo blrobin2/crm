@@ -47,6 +47,7 @@ group :test do
   gem 'json_matchers'
   gem 'json-schema'
   gem 'shoulda-matchers'
+  gem 'simplecov', '< 0.18', require: false
   gem 'timecop'
   gem 'vcr'
   gem 'webmock'
