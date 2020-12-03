@@ -5,7 +5,7 @@ import { ConnectedRouter as Router } from 'connected-react-router';
 
 import { history, store } from './store';
 
-export const AppProvider = ({ children }) => (
+export const AppProvider = ({ children }: React.PropsWithChildren<unknown>) => (
   <Provider store={store}>
     <Router history={history}>
       {children}
