@@ -68,8 +68,7 @@ blocks:
       - name: RSpec - backend tests
         commands:
           - bundle exec rspec
-          - exitcode=$(if [ "$SEMAPHORE_THREAD_RESULT" == "passed" ]; then echo 0; else echo 1; fi)
-          - ./cc-test-reporter after-build --exit-code $exitcode
+          - ./cc-test-reporter after-build $?
 
   - name: Frontend tests
     dependencies:
