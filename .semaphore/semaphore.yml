@@ -83,3 +83,7 @@ blocks:
       - name: Jest - frontend tests
         commands:
           - yarn --cwd client test
+
+promotions:
+  - name: Deploy to Heroku
+    pipeline_file: heroku.yml
