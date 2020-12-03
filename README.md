@@ -33,8 +33,7 @@ yarn --cwd client test
 ```
 
 ## Environments
-  * staging<stg>
-  * production<prod>
+  * production: [production](https://crm-blrobin2.herokuapp.com/)
 
 ## Deployment
 [Semaphore](https://semaphoreci.com)
