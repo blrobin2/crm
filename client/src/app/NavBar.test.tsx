@@ -1,4 +1,6 @@
-import { renderTest } from './AppProvider';
+import { renderTest } from './TestHelpers';
 import { NavBar } from './NavBar';
 
-renderTest('NavBar', NavBar);
+describe('NavBar', () => {
+  renderTest('NavBar', NavBar);
+});

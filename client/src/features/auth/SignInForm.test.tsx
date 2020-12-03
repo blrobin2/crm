@@ -2,31 +2,19 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import { act } from 'react-dom/test-utils';
-import { Provider } from 'react-redux';
-import { ConnectedRouter as Router } from 'connected-react-router';
 
-import { history, store } from '../../app/store';
+import { renderTest, AppProvider } from '../../app/TestHelpers';
 import { SignInForm } from './SignInForm'
 
 describe('SignInForm', () => {
-  it('renders SignInForm component', () => {
-    render(
-      <Provider store={store}>
-        <Router history={history}>
-          <SignInForm />
-        </Router>
-      </Provider>
-    );
-  });
+  renderTest('SignInForm', SignInForm)
 
   it('submits the inputted values', async () => {
     const mockHandleFormSubmit = jest.fn(_dispatch => _stuff => {});
     render(
-      <Provider store={store}>
-        <Router history={history}>
-          <SignInForm handleFormSubmit={mockHandleFormSubmit} />
-        </Router>
-      </Provider>
+      <AppProvider>
+        <SignInForm handleFormSubmit={mockHandleFormSubmit} />
+      </AppProvider>
     );
 
     await act(async () => {

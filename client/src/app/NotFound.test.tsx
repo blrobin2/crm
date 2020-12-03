@@ -1,4 +1,6 @@
-import { renderTest } from './AppProvider';
+import { renderTest } from './TestHelpers';
 import { NotFound } from './NotFound';
 
-renderTest('NotFound', NotFound);
+describe('NotFound', () => {
+  renderTest('NotFound', NotFound);
+});
