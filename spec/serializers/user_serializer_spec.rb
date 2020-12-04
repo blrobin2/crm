@@ -5,10 +5,18 @@ RSpec.describe UserSerializer do
     let(:user) { create(:user) }
     let(:serializer) { described_class.new(user) }
     let(:actual) { JSON.parse(serializer.to_json) }
+    let(:attributes) { actual['data']['attributes'] }
 
-    it 'serializes the user attributes' do
-      attributes = actual['data']['attributes']
-      expect(attributes).to have_keys('first_name', 'last_name', 'email')
+    it 'serializes the first name' do
+      expect(attributes).to have_key('first_name')
+    end
+
+    it 'serializes the last name' do
+      expect(attributes).to have_key('last_name')
+    end
+
+    it 'serializes the email' do
+      expect(attributes).to have_key('email')
     end
 
     it 'defines the type' do
