@@ -18,7 +18,7 @@ module Crm
       def filter_keys
         return [] unless params[:filter]
 
-        params[:fitler].keys
+        params[:filter].keys
       end
     end
   end

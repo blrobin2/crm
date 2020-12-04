@@ -24,7 +24,7 @@ module Crm
     def all_without_pagination
       @all_without_pagination ||=
         scope
-        .includes(includes_conditions)
+        .includes(include_conditions)
         .joins(join_conditions)
         .select(select_conditions)
         .where(scopes)
@@ -38,7 +38,7 @@ module Crm
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def find(id = nil, by: :id)
-      find_scope.find_by!(by => id || params[:id])
+      scope.find_by!(by => id || params[:id])
     end
 
     def scope
