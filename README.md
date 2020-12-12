@@ -9,7 +9,7 @@
 
 ### System
   * Ruby (defined in .ruby-version file)
-  * yarn
+  * yarn (defined in package.json file)
   * eslint
 ## Setup
 Run:
@@ -25,11 +25,11 @@ Run after each `git pull`:
 ## Test Suite
 Server, run:
 ```bash
-rspec
+bundle exec rspec
 ```
 Client, run:
 ```bash
-yarn --cwd client test
+yarn test
 ```
 
 ## Environments
