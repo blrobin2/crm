@@ -22,7 +22,7 @@ class ResponseBuilder
       current_page: resource.current_page,
       total_pages: resource.total_pages,
       total_count: resource.total_count,
-      max_page_size: resource.max_page_size
+      max_page_size: resource.max_pages
     }
   end
 
@@ -57,7 +57,7 @@ class ResponseBuilder
 
     params[:page] = {
       number: page,
-      size: params.fetch(:page, {}).fetch(:size, Kaminari, config.default_per_page)
+      size: params.fetch(:page, {}).fetch(:size, Kaminari.config.default_per_page)
     }
     Rails.application.routes.url_helpers.url_for(params)
   end

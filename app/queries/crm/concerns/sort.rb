@@ -23,9 +23,9 @@ module Crm
         )
       end
 
-      def mulitiple_sort(field, direction)
+      def multiple_sort(field, direction)
         relationship_name, relationship_attribute = field.split('.')
-        field = relationship_tablew_name(relationship_name)
+        field = relationship_table_name(relationship_name)
         "#{field}.#{relationship_attribute} #{direction} #{nils_last}"
       end
 
@@ -42,9 +42,9 @@ module Crm
       end
 
       def relationship_table_name(relationship_name)
-        sort_relationship_mappings.first.find do |mapping|
-          mapping.first == relationship_name.to_sym
-        end.last
+        sorted_relationship_mappings.find do |mapping|
+          mapping == relationship_name.to_sym
+        end
       end
 
       def sort_direction(sort_field)
@@ -60,7 +60,7 @@ module Crm
       end
 
       def column_type(name)
-        model.column_for_attributes(name).type
+        model.column_for_attribute(name).type
       end
 
       def nils_last
@@ -69,6 +69,10 @@ module Crm
 
       def model
         self.class.name.demodulize.split('Query').first.singularize.constantize
+      end
+
+      def sorted_relationship_mappings
+        model.reflect_on_all_associations.map(&:name).sort
       end
     end
   end

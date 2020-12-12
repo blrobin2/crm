@@ -12,7 +12,7 @@ module Crm
       end
 
       def filter_scope!
-        filter_scope || raise(::V1::ApplicationController::BadRequestError, 'Missing filter(s)')
+        filter_scope || raise(ActionController::BadRequest.new, 'Missing filter(s)')
       end
 
       def scope_conditions

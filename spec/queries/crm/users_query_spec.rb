@@ -1,10 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe Crm::UsersQuery do
-  let(:users) { create_list(:user, 100) }
+  let(:users) { create_list(:user, 51) }
   let(:current_user) { users.first }
   let(:params) { ActionController::Parameters.new }
   let(:users_query) { described_class.new(current_user, params) }
+
+  it_behaves_like 'filter' do
+    let(:instance) { users_query }
+  end
+  it_behaves_like 'scope' do
+    let(:instance) { users_query }
+  end
 
   describe 'associations' do
     let(:params) { ActionController::Parameters.new(include: 'jti_claims') }
@@ -60,6 +67,21 @@ RSpec.describe Crm::UsersQuery do
         user = users_query.find(current_user.first_name, by: :first_name)
         expect(user.first_name).to eq(current_user.first_name)
       end
+    end
+  end
+
+  describe 'sorting' do
+    let(:sort_filters) { 'first_name,-last_name,id,jti_claims.value' }
+    let(:params) { ActionController::Parameters.new(sort: sort_filters) }
+
+    it 'can sort by multiple fields' do
+      expected_sort_conditions = [
+        'UPPER(first_name) COLLATE "C" ASC NULLS LAST',
+        'UPPER(last_name) COLLATE "C" DESC NULLS LAST',
+        'id ASC NULLS LAST',
+        'jti_claims.value ASC NULLS LAST'
+      ]
+      expect(users_query.sort_conditions).to eq(expected_sort_conditions)
     end
   end
 end
