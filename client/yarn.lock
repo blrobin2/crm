@@ -1185,6 +1185,13 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
+"@disruptph/json-api-normalizer@^1.2.9":
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/@disruptph/json-api-normalizer/-/json-api-normalizer-1.2.9.tgz#7e30910865f7029df590f4a2f8bf869915c02c98"
+  integrity sha512-iuWsxIDlVASjj2jRw2DkoIAb+A8iPsS/bx81ccrrx0JXgO+VwOduJ5h/9AUl1PznmhieWIHNPxFo0n5T3LwdzQ==
+  dependencies:
+    json-api-normalizer "^1.0.0"
+
 "@eslint/eslintrc@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.2.1.tgz#f72069c330461a06684d119384435e12a5d76e3c"
@@ -7030,6 +7037,13 @@ jsesc@~0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
   integrity sha1-597mbjXW/Bb3EP6R1c9p9w8IkR0=
+
+json-api-normalizer@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/json-api-normalizer/-/json-api-normalizer-1.0.1.tgz#e31f0231a5baece6100735c7be4647abfedcecdf"
+  integrity sha512-FClOcObSFdHQWs165Nu3WpL3l3S1UdSvI13gd/QsDztoaDDveoEYCC1izw8R93sSN/ObEVXDc8itknisGqUV1w==
+  dependencies:
+    lodash "^4.17.15"
 
 json-parse-better-errors@^1.0.1, json-parse-better-errors@^1.0.2:
   version "1.0.2"

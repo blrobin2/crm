@@ -1,5 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction, SerializedError } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+import { getApiError, handleApiRejection, AppState } from '../../app/apiHelpers';
 import { AppDispatch, RootState } from '../../app/store';
 import { Status } from "../../app/status";
 
@@ -9,51 +10,12 @@ export interface Auth {
   token: Token | null;
 }
 
-export interface AuthState extends Auth {
-  status: Status;
-  error: string | null;
-}
+export type AuthState = Auth & AppState;
 
 export interface UserCredentials {
   email: string;
   password: string;
 }
-
-export interface ApiError {
-  title: string;
-  detail: string;
-  source: {
-    parameter: string;
-    pointer: string;
-  }
-}
-
-export interface ApiErrors {
-  errors: ApiError[]
-}
-
-const getApiError = async (response: Response) => {
-  const responseAsJson: ApiErrors = await response.json();
-  return responseAsJson.errors[0].detail;
-};
-
-const handleApiRejection = <T>(
-  state: AuthState,
-  action: PayloadAction<
-    unknown,
-    string,
-    {
-      arg: T;
-      requestId: string;
-      aborted: boolean;
-      condition: boolean;
-    },
-    SerializedError
-  >
-) => {
-  state.status = Status.FAILED;
-  state.error = action.payload as string;
-};
 
 export const login = createAsyncThunk<Token, UserCredentials, {}>(
   'auth/login',

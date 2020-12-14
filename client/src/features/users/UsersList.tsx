@@ -1,9 +1,65 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { EntityId } from '@reduxjs/toolkit';
+
+import {
+  fetchUsers,
+  selectUserIds,
+  selectUsersStatus,
+  selectUsersError
+} from './usersSlice';
+import { Status } from '../../app/status';
+import { UserListItem } from './UserListItem';
 
 export const UsersList = () => {
+  const dispatch = useDispatch();
+  const userIds: EntityId[] = useSelector(selectUserIds);
+  const usersStatus = useSelector(selectUsersStatus);
+  const usersError = useSelector(selectUsersError)
+
+
+  useEffect(() => {
+    if (usersStatus === Status.IDLE) {
+      dispatch(fetchUsers())
+    }
+  }, [usersStatus, dispatch]);
+
+
+  const content = (() => {
+    switch (usersStatus) {
+      case Status.LOADING:
+        return <div className="loader">Loading&hellip;</div>;
+      case Status.SUCCEEDED: {
+        const content = userIds.map(userId => (
+          <UserListItem key={userId} userId={userId} />
+        ));
+        return (
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {content}
+            </tbody>
+          </table>
+        );
+      }
+      case Status.FAILED:
+        return <div className="alert alert-danger">{usersError}</div>;
+      default:
+        return <span></span>
+    }
+  })();
+
   return (
-    <div>
-      <h1>Users</h1>
-    </div>
-  )
+    <section className="users-list">
+      <h2>Users</h2>
+      {content}
+    </section>
+  );
 }
