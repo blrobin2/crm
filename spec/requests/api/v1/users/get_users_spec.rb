@@ -1,5 +1,3 @@
-include 'rails_helper'
-
 describe 'GetUsers' do
   include Docs::Api::V1::Users::Api
   let(:users) { create_list(:user, 3) }
