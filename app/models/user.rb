@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   enumeration :role
 
+  validates :role, presence: true
   ALPHA_ONLY = /\A[a-zA-Z\-]+\z/.freeze
   validates :first_name,
             format: { with: ALPHA_ONLY,

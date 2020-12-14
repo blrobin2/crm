@@ -8,6 +8,8 @@ Rails.application.routes.draw do
           resource :sessions, only: [:create, :destroy]
         end
       end
+
+      resources :users, only: [:index]
     end
   end
 

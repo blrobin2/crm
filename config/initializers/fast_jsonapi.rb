@@ -3,15 +3,17 @@ def register_renderers
     ::ActionController::Renderers.add(:jsonapi) do |resources, opts|
       serializer = opts.delete(:serializer)
       options = clear_options(opts)
-      serializer.new(resources, options)
+      serializer.new(resources, options).to_json
     end
   end
 end
 
 def clear_options(opts)
-  if opts[:params]&.is_a?(ApplicationController::Parameters)
+  if opts[:params]&.is_a?(ActionController::Parameters)
     opts.except(:status, :params, :content_type)
   else
     opts.except(:status, :content_type)
   end
 end
+
+register_renderers
