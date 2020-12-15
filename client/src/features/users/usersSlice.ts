@@ -1,7 +1,14 @@
 import { createAsyncThunk, createSlice, createEntityAdapter, EntityId } from '@reduxjs/toolkit';
 
 import { AppDispatch, RootState } from '../../app/store';
-import { AppState, getApiError, handleApiRejection, normalizeApiResponse, ApiResponse } from '../../app/apiHelpers';
+import {
+  AppState,
+  getApiError,
+  callApi,
+  handleApiRejection,
+  normalizeApiResponse,
+  ApiResponse
+} from '../../app/apiHelpers';
 import { selectAuthToken } from '../auth/authSlice';
 import { Status } from '../../app/status';
 
@@ -36,15 +43,7 @@ export const fetchUsers = createAsyncThunk<
   }
 >('users/index', async (_, { getState, rejectWithValue }) => {
   const token = selectAuthToken(getState());
-  const response = await fetch('/api/v1/users', {
-    method: 'get',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/vnd.api+json',
-      'Accept': 'application/vnd.api+json',
-      'Authorization': `Bearer ${token}`
-    }
-  });
+  const response = await callApi({ endpoint: 'users', method: 'get', token });
 
   if (response.status !== 200) {
     const error = await getApiError(response);

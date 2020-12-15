@@ -22,6 +22,29 @@ export interface AppState {
   error: string | null;
 }
 
+interface CallApiParams {
+  endpoint: string;
+  method: string;
+  token: string | null;
+}
+
+export const callApi = ({ endpoint, method, token }: CallApiParams) => {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/vnd.api+json',
+    'Accept': 'application/vnd.api+json'
+  };
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  return fetch(`/api/v1/${endpoint}`, {
+    method,
+    credentials: 'include',
+    headers
+  });
+}
+
 export const getApiError = async (response: Response) => {
   const responseAsJson: ApiErrors = await response.json();
   return responseAsJson.errors[0].detail;

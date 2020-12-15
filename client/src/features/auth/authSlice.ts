@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { getApiError, handleApiRejection, AppState } from '../../app/apiHelpers';
+import { callApi, getApiError, handleApiRejection, AppState } from '../../app/apiHelpers';
 import { AppDispatch, RootState } from '../../app/store';
 import { Status } from "../../app/status";
 
@@ -55,14 +55,10 @@ export const logout = createAsyncThunk<
   }
 >('auth/logout', async (_, { getState, rejectWithValue }) => {
   const token = selectAuthToken(getState());
-  const response = await fetch('/api/v1/sessions', {
+  const response = await callApi({
+    endpoint: 'sessions',
     method: 'delete',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/vnd.api+json',
-      'Accept': 'application/vnd.api+json',
-      'Authorization': `Bearer ${token}`
-    }
+    token
   });
 
   if (response.status !== 204) {
