@@ -11,12 +11,32 @@ import {
 import { Status } from '../../app/status';
 import { UserListItem } from './UserListItem';
 
+const UsersTable = ({ userIds } : { userIds: EntityId[] }) => {
+  const content = userIds.map(userId => (
+    <UserListItem key={userId} userId={userId} />
+  ));
+  return (
+    <table className="table table-striped">
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {content}
+      </tbody>
+    </table>
+  );
+}
+
 export const UsersList = () => {
   const dispatch = useDispatch();
   const userIds: EntityId[] = useSelector(selectUserIds);
   const usersStatus = useSelector(selectUsersStatus);
   const usersError = useSelector(selectUsersError)
-
 
   useEffect(() => {
     if (usersStatus === Status.IDLE) {
@@ -29,26 +49,8 @@ export const UsersList = () => {
     switch (usersStatus) {
       case Status.LOADING:
         return <div className="loader">Loading&hellip;</div>;
-      case Status.SUCCEEDED: {
-        const content = userIds.map(userId => (
-          <UserListItem key={userId} userId={userId} />
-        ));
-        return (
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>User ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              {content}
-            </tbody>
-          </table>
-        );
-      }
+      case Status.SUCCEEDED:
+        return <UsersTable userIds={userIds} />
       case Status.FAILED:
         return <div className="alert alert-danger">{usersError}</div>;
       default:

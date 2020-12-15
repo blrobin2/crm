@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, createEntityAdapter, PayloadAction, EntityId } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, createEntityAdapter, EntityId } from '@reduxjs/toolkit';
 
 import { AppDispatch, RootState } from '../../app/store';
 import { AppState, getApiError, handleApiRejection, normalizeApiResponse, ApiResponse } from '../../app/apiHelpers';
