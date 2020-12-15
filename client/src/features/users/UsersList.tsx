@@ -37,14 +37,11 @@ export const UsersList = () => {
   const userIds: EntityId[] = useSelector(selectUserIds);
   const usersStatus = useSelector(selectUsersStatus);
   const usersError = useSelector(selectUsersError)
-
   useEffect(() => {
     if (usersStatus === Status.IDLE) {
       dispatch(fetchUsers())
     }
   }, [usersStatus, dispatch]);
-
-
   const content = (() => {
     switch (usersStatus) {
       case Status.LOADING:
