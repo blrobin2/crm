@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, ReactChildren } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { EntityId } from '@reduxjs/toolkit';
 
@@ -32,16 +32,23 @@ const UsersTable = ({ userIds } : { userIds: EntityId[] }) => {
   );
 }
 
+const UsersListLayout = ({ children }: { children: JSX.Element }) => (
+  <section className="users-list">
+    <h2>Users</h2>
+    {children}
+  </section>
+);
+
 export const UsersList = () => {
   const dispatch = useDispatch();
   const userIds: EntityId[] = useSelector(selectUserIds);
   const usersStatus = useSelector(selectUsersStatus);
-  const usersError = useSelector(selectUsersError)
+  const usersError = useSelector(selectUsersError);
+
   useEffect(() => {
-    if (usersStatus === Status.IDLE) {
-      dispatch(fetchUsers())
-    }
+    if (usersStatus === Status.IDLE) dispatch(fetchUsers());
   }, [usersStatus, dispatch]);
+
   const content = (() => {
     switch (usersStatus) {
       case Status.LOADING:
@@ -51,14 +58,9 @@ export const UsersList = () => {
       case Status.FAILED:
         return <div className="alert alert-danger">{usersError}</div>;
       default:
-        return <span></span>
+        return <></>;
     }
   })();
 
-  return (
-    <section className="users-list">
-      <h2>Users</h2>
-      {content}
-    </section>
-  );
+  return <UsersListLayout>{content}</UsersListLayout>;
 }
