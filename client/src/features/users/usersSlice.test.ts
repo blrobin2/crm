@@ -11,7 +11,8 @@ describe('usersSlice', () => {
     entities: {},
     error: null,
     ids: [],
-    status: Status.IDLE
+    status: Status.IDLE,
+    meta: {}
   };
   const users = {
     '1': {
@@ -45,7 +46,8 @@ describe('usersSlice', () => {
       reducer(initialState, {
         type: 'users/index/fulfilled',
         payload: {
-          value: users
+          value: users,
+          meta: {}
         }
       })
     ).toEqual({

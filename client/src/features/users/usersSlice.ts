@@ -31,19 +31,20 @@ export const usersAdapter = createEntityAdapter<User>();
 
 const initialState = usersAdapter.getInitialState<AppState>({
   status: Status.IDLE,
-  error: null
+  error: null,
+  meta: {}
 });
 
 export const fetchUsers = createAsyncThunk<
   ApiResponse<User>,
-  void,
+  number,
   {
     dispatch: AppDispatch,
     state: RootState
   }
->('users/index', async (_, { getState, rejectWithValue }) => {
+>('users/index', async (pageNumber, { getState, rejectWithValue }) => {
   const token = selectAuthToken(getState());
-  const response = await callApi({ endpoint: 'users', method: 'get', token });
+  const response = await callApi({ endpoint: 'users', method: 'get', pageNumber, token });
 
   if (response.status !== 200) {
     const error = await getApiError(response);
@@ -64,7 +65,8 @@ const usersSlice = createSlice({
 
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
       state.status = Status.SUCCEEDED;
-      usersAdapter.upsertMany(state, action.payload.value);
+      state.meta = action.payload.meta;
+      usersAdapter.setAll(state, action.payload.value);
     });
     builder.addCase(fetchUsers.rejected, handleApiRejection);
   }
@@ -80,3 +82,4 @@ export const {
 
 export const selectUsersStatus = (state: RootState) => state.users.status;
 export const selectUsersError = (state: RootState) => state.users.error;
+export const selectUsersMeta = (state: RootState) => state.users.meta;

@@ -6,10 +6,13 @@ import {
   fetchUsers,
   selectUserIds,
   selectUsersStatus,
-  selectUsersError
+  selectUsersError,
+  selectUsersMeta
 } from './usersSlice';
 import { Status } from '../../app/status';
+import { Pagination, OnPaginationPageChange } from '../../app/Pagination';
 import { UserListItem } from './UserListItem';
+import { MetaState } from '../../app/apiHelpers';
 
 const UsersTable = ({ userIds } : { userIds: EntityId[] }) => {
   const content = userIds.map(userId => (
@@ -32,12 +35,31 @@ const UsersTable = ({ userIds } : { userIds: EntityId[] }) => {
   );
 }
 
-const UsersListLayout = ({ children }: { children: JSX.Element }) => (
-  <section className="users-list">
-    <h2>Users</h2>
-    {children}
-  </section>
-);
+const UsersListLayout = ({ children, onPageChange }: { children: JSX.Element, onPageChange: (x: any) => void }) => {
+  const meta: MetaState = useSelector(selectUsersMeta);
+  const totalPages = meta.total_pages || 0;
+  const currentPage = meta.current_page || 1;
+  const totalCount = meta.total_count || 1;
+
+  return (
+    <section className="users-list">
+      <h2>Users</h2>
+      <Pagination
+        pageCount={totalPages}
+        currentPage={currentPage}
+        totalCount={totalCount}
+        onPageChange={onPageChange}
+      />
+      {children}
+      <Pagination
+        pageCount={totalPages}
+        currentPage={currentPage}
+        totalCount={totalCount}
+        onPageChange={onPageChange}
+      />
+    </section>
+  );
+};
 
 export const UsersList = () => {
   const dispatch = useDispatch();
@@ -46,8 +68,13 @@ export const UsersList = () => {
   const usersError = useSelector(selectUsersError);
 
   useEffect(() => {
-    if (usersStatus === Status.IDLE) dispatch(fetchUsers());
+    if (usersStatus === Status.IDLE) dispatch(fetchUsers(1));
   }, [usersStatus, dispatch]);
+
+  const handlePageChange: OnPaginationPageChange = ({ selected }) => {
+    const pageNumber = selected + 1;
+    dispatch(fetchUsers(pageNumber));
+  };
 
   const content = (() => {
     switch (usersStatus) {
@@ -62,5 +89,5 @@ export const UsersList = () => {
     }
   })();
 
-  return <UsersListLayout>{content}</UsersListLayout>;
+  return <UsersListLayout onPageChange={handlePageChange}>{content}</UsersListLayout>;
 }

@@ -11,7 +11,8 @@ describe('authSlice', () => {
     const initialState = {
       token: null,
       status: Status.IDLE,
-      error: null
+      error: null,
+      meta: {}
     };
 
     it('should return the initial state', () => {
@@ -24,9 +25,8 @@ describe('authSlice', () => {
           type: 'auth/login/pending'
         })
       ).toEqual({
-        token: null,
-        status: Status.LOADING,
-        error: null
+        ...initialState,
+        status: Status.LOADING
       });
     });
 
@@ -38,9 +38,9 @@ describe('authSlice', () => {
           payload: token
         })
       ).toEqual({
+        ...initialState,
         token: token,
         status: Status.SUCCEEDED,
-        error: null
       });
     });
 
@@ -52,7 +52,7 @@ describe('authSlice', () => {
           payload: error
         })
       ).toEqual({
-        token: null,
+        ...initialState,
         status: Status.FAILED,
         error: error
       });
@@ -61,32 +61,30 @@ describe('authSlice', () => {
     it('should handle logout/pending', () => {
       expect(
         reducer({
+          ...initialState,
           token: 'some_token',
-          status: Status.IDLE,
-          error: null
         }, {
           type: 'auth/logout/pending'
         })
       ).toEqual({
+        ...initialState,
         token: 'some_token',
         status: Status.LOADING,
-        error: null
       });
     });
 
     it('should handle logout/fulfilled', () => {
       expect(
         reducer({
+          ...initialState,
           token: 'some_token',
-          status: Status.IDLE,
-          error: null
         }, {
           type: 'auth/logout/fulfilled'
         })
       ).toEqual({
+        ...initialState,
         token: null,
         status: Status.SUCCEEDED,
-        error: null
       });
     });
 
@@ -94,14 +92,14 @@ describe('authSlice', () => {
       const error = new Error('Some Error');
       expect(
         reducer({
+          ...initialState,
           token: 'some_token',
-          status: Status.IDLE,
-          error: null
         }, {
           type: 'auth/logout/rejected',
           payload: error
         })
       ).toEqual({
+        ...initialState,
         token: 'some_token',
         status: Status.FAILED,
         error: error

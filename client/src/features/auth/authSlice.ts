@@ -70,7 +70,8 @@ export const logout = createAsyncThunk<
 const initialState: AuthState = {
   token: null,
   status: Status.IDLE,
-  error: null
+  error: null,
+  meta: {}
 };
 
 const authSlice = createSlice({
