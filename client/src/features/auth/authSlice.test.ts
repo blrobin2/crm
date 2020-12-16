@@ -1,10 +1,12 @@
 import configureMockStore from 'redux-mock-store';
 import fetchMock from 'fetch-mock-jest';
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
+
 import reducer, { login, logout } from './authSlice';
+import { reducerErrorTest, reducerPendingTest } from '../../app/reducerTestHelpers';
 import { Status } from '../../app/status';
 
-const mockStore = configureMockStore(getDefaultMiddleware())
+const mockStore = configureMockStore(getDefaultMiddleware());
 
 describe('authSlice', () => {
   describe('reducer', () => {
@@ -20,14 +22,7 @@ describe('authSlice', () => {
     });
 
     it('should handle login/pending', () => {
-      expect(
-        reducer(initialState, {
-          type: 'auth/login/pending'
-        })
-      ).toEqual({
-        ...initialState,
-        status: Status.LOADING
-      });
+      reducerPendingTest(reducer, initialState, 'auth/login/pending');
     });
 
     it('should handle login/fulfilled', () => {
@@ -45,17 +40,7 @@ describe('authSlice', () => {
     });
 
     it('should handle login/rejected', () => {
-      const error = new Error('Some Error');
-      expect(
-        reducer(initialState, {
-          type: 'auth/login/rejected',
-          payload: error
-        })
-      ).toEqual({
-        ...initialState,
-        status: Status.FAILED,
-        error: error
-      });
+      reducerErrorTest(reducer, initialState, 'auth/login/rejected');
     });
 
     it('should handle logout/pending', () => {

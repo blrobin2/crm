@@ -1,7 +1,9 @@
 import configureMockStore from 'redux-mock-store';
 import fetchMock from 'fetch-mock-jest';
 import { getDefaultMiddleware } from '@reduxjs/toolkit';
+
 import reducer, { fetchUsers } from './usersSlice';
+import { reducerErrorTest, reducerPendingTest } from '../../app/reducerTestHelpers';
 import { Status } from '../../app/status';
 
 const mockStore = configureMockStore(getDefaultMiddleware());
@@ -31,14 +33,7 @@ describe('usersSlice', () => {
   });
 
   it('should handle fetchUsers/pending', () => {
-    expect(
-      reducer(initialState, {
-        type: 'users/index/pending'
-      })
-    ).toEqual({
-      ...initialState,
-      status: Status.LOADING
-    });
+    reducerPendingTest(reducer, initialState, 'users/index/pending');
   });
 
   it('should handle fetchUsers/fulfilled', () => {
@@ -59,17 +54,7 @@ describe('usersSlice', () => {
   });
 
   it('should handle fetchUsers/rejected', () => {
-    const error = new Error('some error');
-    expect(
-      reducer(initialState, {
-        type: 'users/index/rejected',
-        payload: error
-      })
-    ).toEqual({
-      ...initialState,
-      status: Status.FAILED,
-      error
-    });
+    reducerErrorTest(reducer, initialState, 'users/index/rejected');
   });
 
   describe('async actions', () => {
