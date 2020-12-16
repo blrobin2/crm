@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :territories, only: [:index]
       resources :users, only: [:index]
     end
   end

@@ -22,7 +22,7 @@ class ResponseBuilder
       current_page: resource.current_page,
       total_pages: resource.total_pages,
       total_count: resource.total_count,
-      max_page_size: resource.max_pages
+      max_page_size: resource.max_per_page
     }
   end
 
