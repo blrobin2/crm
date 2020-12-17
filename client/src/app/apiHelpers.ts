@@ -29,14 +29,44 @@ export interface AppState {
   meta: MetaState;
 }
 
-interface CallApiParams {
+export interface CallApiQueryParams {
+  page?: {
+    number?: number;
+  },
+  where?: {
+    [key: string]: any;
+  },
+  filter?: {
+    [key: string]: boolean;
+  }
+}
+
+export interface CallApiParams {
   endpoint: string;
   method: string;
   token: string | null;
-  pageNumber?: number;
+  params?: CallApiQueryParams
 }
 
-export const callApi = ({ endpoint, method, pageNumber, token }: CallApiParams) => {
+const buildApiUrl = (url: string, params: CallApiQueryParams | undefined): string => {
+  if (Object.keys(params as Object).length <= 0) {
+    return '';
+  }
+  Object.entries(params as Object).forEach(([key, value]) => {
+    const sym = (url.includes('?') ? '&' : '?');
+    let str = sym;
+    const params = Object.entries(value as Object).map(([k2, v2]) => {
+      if (v2 === undefined) return undefined;
+      return `${key}[${k2}]=${v2}`;
+    }).filter(v => v !== undefined);
+
+    url += (str + params.join('&'));
+  });
+
+  return url;
+}
+
+export const callApi = ({ endpoint, method, params, token }: CallApiParams) => {
   const headers: Record<string, string> = {
     'Content-Type': 'application/vnd.api+json',
     'Accept': 'application/vnd.api+json'
@@ -46,10 +76,7 @@ export const callApi = ({ endpoint, method, pageNumber, token }: CallApiParams) 
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  let url = `/api/v1/${endpoint}`;
-  if (pageNumber) {
-    url += `?page[number]=${pageNumber}`;
-  }
+  const url = buildApiUrl(`/api/v1/${endpoint}`, params);
 
   return fetch(url, {
     method,

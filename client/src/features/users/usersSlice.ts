@@ -44,7 +44,16 @@ export const fetchUsers = createAsyncThunk<
   }
 >('users/index', async (pageNumber, { getState, rejectWithValue }) => {
   const token = selectAuthToken(getState());
-  const response = await callApi({ endpoint: 'users', method: 'get', pageNumber, token });
+  const response = await callApi({
+    endpoint: 'users',
+    method: 'get',
+    params: {
+      page: {
+        number: pageNumber
+      }
+    },
+    token
+  });
 
   if (response.status !== 200) {
     const error = await getApiError(response);

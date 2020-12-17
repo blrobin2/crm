@@ -5,6 +5,7 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import throttle from 'lodash/throttle';
 
 import authReducer from '../features/auth/authSlice';
+import territoriesReducer from '../features/territories/territoriesSlice';
 import usersReducer from '../features/users/usersSlice';
 import { loadToken, saveToken } from './tokenStorage';
 
@@ -13,7 +14,8 @@ export const history = createBrowserHistory();
 const reducers = combineReducers({
   router: connectRouter(history),
   auth: authReducer,
-  users: usersReducer
+  territories: territoriesReducer,
+  users: usersReducer,
 });
 
 const preloadedState = loadToken();

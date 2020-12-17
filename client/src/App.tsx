@@ -11,6 +11,7 @@ import { NavBar } from './app/NavBar';
 import { ProtectedRoute } from './app/ProtectedRoute';
 
 import { UsersList } from './features/users/UsersList';
+import { TerritoriesTree } from './features/territories/TerritoriesTree';
 import { SignInForm } from './features/auth/SignInForm';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Switch>
               <Route exact path='/sign-in' component={SignInForm} />
               <ProtectedRoute exact path='/users' component={UsersList} />
+              <ProtectedRoute exact path='/territories/:parentId?' component={TerritoriesTree} />
               <Route component={NotFound} />
             </Switch>
           </Col>

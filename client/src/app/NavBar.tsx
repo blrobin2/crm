@@ -28,6 +28,7 @@ export const NavBar = ({ handleLogoutButtonClick = onLogoutButtonClick }) => {
     return (
       <>
         <Link to="/users" className="nav-link">Users</Link>
+        <Link to="/territories" className="nav-link">Territories</Link>
         <button className="btn btn-sm btn-info" onClick={handleLogoutButtonClick(dispatch)}>Logout</button>
       </>
     )
