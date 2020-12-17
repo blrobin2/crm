@@ -18,4 +18,14 @@ class User < ApplicationRecord
   enumeration :role
   validates :role, presence: true
   delegate :admin?, :advisor?, :sales?, to: :role
+
+  def territories
+    if sales?
+      sales_territories
+    elsif advisor?
+      advisor_territories
+    else
+      []
+    end
+  end
 end

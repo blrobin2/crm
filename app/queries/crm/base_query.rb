@@ -28,7 +28,7 @@ module Crm
         .joins(join_conditions)
         .select(select_conditions)
         .where(scopes)
-        .where(where_conditions)
+        .where(wheres)
         .yield_self do |relation|
           filters.reduce(relation) { |rel, filter| rel.where(filter) }
         end

@@ -7,6 +7,10 @@ module Crm
         end.compact
       end
 
+      def wheres
+        where_conditions.merge(where_params)
+      end
+
       def filter_conditions
         {}
       end
@@ -19,6 +23,10 @@ module Crm
         return [] unless params[:filter]
 
         params[:filter].keys
+      end
+
+      def where_params
+        params[:where].to_h.transform_keys(&:to_sym)
       end
     end
   end

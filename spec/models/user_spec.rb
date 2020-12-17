@@ -12,4 +12,23 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:sales_territories) }
     it { is_expected.to have_many(:advisor_territories) }
   end
+
+  describe '#territories' do
+    let(:territory) { create(:territory) }
+    let(:sales_person) { territory.sales_person }
+    let(:advisor) { territory.advisor }
+    let(:admin) { create(:admin) }
+
+    it 'can fetch territories for a sales person' do
+      expect(sales_person.territories).to include(territory)
+    end
+
+    it 'can fetch territories for an advisor' do
+      expect(advisor.territories).to include(territory)
+    end
+
+    it 'can fetch territories for an admin' do
+      expect(admin.territories).to be_empty
+    end
+  end
 end

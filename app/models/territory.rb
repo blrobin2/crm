@@ -9,6 +9,8 @@ class Territory < ApplicationRecord
   validate :advisor_must_be_advisor
   validate :sales_must_be_sales
 
+  alias_attribute :sales_person, :sales
+
   private
 
   def advisor_must_be_advisor
