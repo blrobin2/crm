@@ -10,6 +10,11 @@ interface PaginationParams {
   onPageChange: OnPaginationPageChange;
 }
 
+export const withPageChange = (cb: (pageNumber: number) => void) => ({ selected }: { selected: number }) => {
+  const pageNumber = selected + 1;
+  cb(pageNumber);
+};
+
 export const Pagination = ({ pageCount, currentPage, totalCount, onPageChange }: PaginationParams) => {
   const pageIndex = currentPage - 1;
 

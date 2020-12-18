@@ -10,7 +10,7 @@ import {
   selectUsersMeta
 } from './usersSlice';
 import { Status } from '../../app/status';
-import { Pagination, OnPaginationPageChange } from '../../app/Pagination';
+import { Pagination, OnPaginationPageChange, withPageChange } from '../../app/Pagination';
 import { UserListItem } from './UserListItem';
 import { MetaState } from '../../app/apiHelpers';
 
@@ -35,7 +35,7 @@ const UsersTable = ({ userIds } : { userIds: EntityId[] }) => {
   );
 }
 
-const UsersListLayout = ({ children, onPageChange }: { children: JSX.Element, onPageChange: (x: any) => void }) => {
+const UsersListLayout = ({ children, onPageChange }: { children: JSX.Element, onPageChange: OnPaginationPageChange }) => {
   const meta: MetaState = useSelector(selectUsersMeta);
   const totalPages = meta.total_pages || 0;
   const currentPage = meta.current_page || 1;
@@ -71,10 +71,8 @@ export const UsersList = () => {
     if (usersStatus === Status.IDLE) dispatch(fetchUsers(1));
   }, [usersStatus, dispatch]);
 
-  const handlePageChange: OnPaginationPageChange = ({ selected }) => {
-    const pageNumber = selected + 1;
-    dispatch(fetchUsers(pageNumber));
-  };
+  const handlePageChange: OnPaginationPageChange =
+    withPageChange(pageNumber => dispatch(fetchUsers(pageNumber)));
 
   const content = (() => {
     switch (usersStatus) {

@@ -115,7 +115,7 @@ export const {
 export const selectTerritoriesStatus = (state: RootState) => state.territories.status;
 export const selectTerritoriesError = (state: RootState) => state.territories.error;
 export const selectTerritoriesMeta = (state: RootState) => state.territories.meta;
-export const selectCurrentParentId = createSelector(
+export const selectTerritoryParentId = createSelector<RootState, Territory[], number>(
   selectAllTerritories,
   terr => terr.length > 0 ? terr[0].attributes.parentId as number : -1
 );
