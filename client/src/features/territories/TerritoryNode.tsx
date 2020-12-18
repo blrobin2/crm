@@ -8,10 +8,10 @@ import { selectTerritoryById } from './territoriesSlice';
 
 interface TerritoryNodeParams {
   territoryId: EntityId;
-  onButtonClick: (oldParentId: string, newParentId: string) => void;
+  onTerritoryClick: (oldParentId: string, newParentId: string) => void;
 }
 
-export const TerritoryNode = ({ territoryId, onButtonClick }: TerritoryNodeParams) => {
+export const TerritoryNode = ({ territoryId, onTerritoryClick }: TerritoryNodeParams) => {
   const territory = useSelector((state: RootState) => selectTerritoryById(state, territoryId));
   if (!territory) {
     return (
@@ -20,13 +20,14 @@ export const TerritoryNode = ({ territoryId, onButtonClick }: TerritoryNodeParam
   }
 
   const eventKey = territoryId.toString();
-  const parentId = territory.attributes?.parentId?.toString();
+  console.log(territory);
+  const parentId = territory.attributes.parentId?.toString();
   const content = (() => {
     if (territory.attributes.childIds.length > 0) {
       return (
         <div className="row">
           <div className="col">
-            <button onClick={() => onButtonClick(parentId || '', eventKey)} className="btn btn-link">
+            <button onClick={() => onTerritoryClick(parentId || '', eventKey)} className="btn btn-link">
               {territory.attributes.name}
             </button>
           </div>

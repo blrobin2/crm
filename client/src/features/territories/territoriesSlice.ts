@@ -1,4 +1,4 @@
-import { EntityId, createEntityAdapter, createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { EntityId, createEntityAdapter, createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import {
   CallApiQueryParams,
   AppState,
@@ -101,10 +101,6 @@ const territoriesSlice = createSlice({
       handleApiFetchAll(state, action, territoriesAdapter));
 
     builder.addCase(fetchTerritories.rejected, handleApiRejection);
-
-    // builder.addCase('@@router/LOCATION_CHANGE', state => {
-    //   state.status = Status.IDLE;
-    // });
   }
 });
 
@@ -119,3 +115,7 @@ export const {
 export const selectTerritoriesStatus = (state: RootState) => state.territories.status;
 export const selectTerritoriesError = (state: RootState) => state.territories.error;
 export const selectTerritoriesMeta = (state: RootState) => state.territories.meta;
+export const selectCurrentParentId = createSelector(
+  selectAllTerritories,
+  terr => terr.length > 0 ? terr[0].attributes.parentId as number : -1
+);

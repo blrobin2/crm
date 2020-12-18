@@ -86,7 +86,7 @@ export const {
   selectAll: selectAllUsers,
   selectById: selectUserById,
   selectIds: selectUserIds
-} = usersAdapter.getSelectors<RootState>(state => state.users)
+} = usersAdapter.getSelectors<RootState>(state => state.users);
 
 export const selectUsersStatus = (state: RootState) => state.users.status;
 export const selectUsersError = (state: RootState) => state.users.error;

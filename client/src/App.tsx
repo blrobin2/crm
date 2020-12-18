@@ -26,7 +26,7 @@ function App() {
             <Switch>
               <Route exact path='/sign-in' component={SignInForm} />
               <ProtectedRoute exact path='/users' component={UsersList} />
-              <ProtectedRoute exact path='/territories/:parentId?' component={TerritoriesTree} />
+              <ProtectedRoute exact path='/territories' component={TerritoriesTree} />
               <Route component={NotFound} />
             </Switch>
           </Col>
