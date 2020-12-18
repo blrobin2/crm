@@ -1,5 +1,6 @@
-import { PayloadAction, SerializedError, EntityId } from '@reduxjs/toolkit';
+import { PayloadAction, SerializedError, EntityId, EntityAdapter, EntityState } from '@reduxjs/toolkit';
 import normalize from '@disruptph/json-api-normalizer';
+import { stringify as stringifyQuery } from 'qs';
 
 import { Status } from './status';
 
@@ -48,24 +49,6 @@ export interface CallApiParams {
   params?: CallApiQueryParams
 }
 
-const buildApiUrl = (url: string, params: CallApiQueryParams | undefined): string => {
-  if (Object.keys(params as Object).length <= 0) {
-    return '';
-  }
-  Object.entries(params as Object).forEach(([key, value]) => {
-    const sym = (url.includes('?') ? '&' : '?');
-    let str = sym;
-    const params = Object.entries(value as Object).map(([k2, v2]) => {
-      if (v2 === undefined) return undefined;
-      return `${key}[${k2}]=${v2}`;
-    }).filter(v => v !== undefined);
-
-    url += (str + params.join('&'));
-  });
-
-  return url;
-}
-
 export const callApi = ({ endpoint, method, params, token }: CallApiParams) => {
   const headers: Record<string, string> = {
     'Content-Type': 'application/vnd.api+json',
@@ -76,7 +59,7 @@ export const callApi = ({ endpoint, method, params, token }: CallApiParams) => {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const url = buildApiUrl(`/api/v1/${endpoint}`, params);
+  const url = `/api/v1/${endpoint}?${stringifyQuery(params)}`;
 
   return fetch(url, {
     method,
@@ -107,6 +90,16 @@ export const handleApiRejection = <T, U extends AppState>(
   state.status = Status.FAILED;
   state.error = action.payload as string;
 };
+
+export const handleApiFetchAll = <U, T extends AppState & EntityState<U>>(
+  state: T,
+  action: PayloadAction<any>,
+  adapter: EntityAdapter<U>
+) => {
+  state.status = Status.SUCCEEDED;
+  state.meta = action.payload.meta;
+  adapter.setAll(state as EntityState<U>, action.payload.value);
+}
 
 export type ApiResponse<T> = {
   value: Record<EntityId, T>,

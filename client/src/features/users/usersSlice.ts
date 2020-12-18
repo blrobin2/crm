@@ -6,6 +6,7 @@ import {
   getApiError,
   callApi,
   handleApiRejection,
+  handleApiFetchAll,
   normalizeApiResponse,
   ApiResponse
 } from '../../app/apiHelpers';
@@ -72,11 +73,9 @@ const usersSlice = createSlice({
       state.status = Status.LOADING
     });
 
-    builder.addCase(fetchUsers.fulfilled, (state, action) => {
-      state.status = Status.SUCCEEDED;
-      state.meta = action.payload.meta;
-      usersAdapter.setAll(state, action.payload.value);
-    });
+    builder.addCase(fetchUsers.fulfilled, (state, action) =>
+      handleApiFetchAll(state, action, usersAdapter));
+
     builder.addCase(fetchUsers.rejected, handleApiRejection);
   }
 });

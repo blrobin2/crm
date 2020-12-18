@@ -2,16 +2,16 @@ import React from 'react';
 import { EntityId } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Link } from 'react-router-dom';
 
 import { RootState } from '../../app/store';
 import { selectTerritoryById } from './territoriesSlice';
 
 interface TerritoryNodeParams {
   territoryId: EntityId;
+  onButtonClick: (oldParentId: string, newParentId: string) => void;
 }
 
-export const TerritoryNode = ({ territoryId }: TerritoryNodeParams) => {
+export const TerritoryNode = ({ territoryId, onButtonClick }: TerritoryNodeParams) => {
   const territory = useSelector((state: RootState) => selectTerritoryById(state, territoryId));
   if (!territory) {
     return (
@@ -20,14 +20,15 @@ export const TerritoryNode = ({ territoryId }: TerritoryNodeParams) => {
   }
 
   const eventKey = territoryId.toString();
+  const parentId = territory.attributes?.parentId?.toString();
   const content = (() => {
     if (territory.attributes.childIds.length > 0) {
       return (
         <div className="row">
           <div className="col">
-            <Link to={`/territories/${eventKey}`}>
+            <button onClick={() => onButtonClick(parentId || '', eventKey)} className="btn btn-link">
               {territory.attributes.name}
-            </Link>
+            </button>
           </div>
         </div>
       );

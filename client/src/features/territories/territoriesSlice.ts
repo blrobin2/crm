@@ -1,5 +1,14 @@
 import { EntityId, createEntityAdapter, createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { CallApiQueryParams, AppState, ApiResponse, callApi, getApiError, normalizeApiResponse, handleApiRejection } from '../../app/apiHelpers';
+import {
+  CallApiQueryParams,
+  AppState,
+  ApiResponse,
+  callApi,
+  getApiError,
+  normalizeApiResponse,
+  handleApiFetchAll,
+  handleApiRejection
+} from '../../app/apiHelpers';
 import { Status } from '../../app/status';
 import { AppDispatch, RootState } from '../../app/store';
 import { selectAuthToken } from '../auth/authSlice';
@@ -8,6 +17,7 @@ export interface Territory {
   id: EntityId;
   attributes: {
     name: string;
+    parentId: EntityId;
     childIds: number[];
   },
   relationships: {
@@ -87,17 +97,14 @@ const territoriesSlice = createSlice({
       state.status = Status.LOADING;
     });
 
-    builder.addCase(fetchTerritories.fulfilled, (state, action) => {
-      state.status = Status.SUCCEEDED;
-      state.meta = action.payload.meta;
-      territoriesAdapter.setAll(state, action.payload.value);
-    });
+    builder.addCase(fetchTerritories.fulfilled, (state, action) =>
+      handleApiFetchAll(state, action, territoriesAdapter));
 
     builder.addCase(fetchTerritories.rejected, handleApiRejection);
 
-    builder.addCase('@@router/LOCATION_CHANGE', state => {
-      state.status = Status.IDLE;
-    });
+    // builder.addCase('@@router/LOCATION_CHANGE', state => {
+    //   state.status = Status.IDLE;
+    // });
   }
 });
 
