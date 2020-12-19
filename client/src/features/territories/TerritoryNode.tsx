@@ -20,14 +20,13 @@ export const TerritoryNode = ({ territoryId, onTerritoryClick }: TerritoryNodePa
   }
 
   const eventKey = territoryId.toString();
-  console.log(territory);
   const parentId = territory.attributes.parentId?.toString();
   const content = (() => {
     if (territory.attributes.childIds.length > 0) {
       return (
         <div className="row">
           <div className="col">
-            <button onClick={() => onTerritoryClick(parentId || '', eventKey)} className="btn btn-link">
+            <button onClick={() => onTerritoryClick(parentId || '', eventKey)} className="btn btn-link" data-testid="territory-node">
               {territory.attributes.name}
             </button>
           </div>

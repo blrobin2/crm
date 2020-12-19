@@ -5,8 +5,8 @@ class TerritorySerializer < BaseSerializer
     object.name.titleize.upcase
   end
   attribute :parent_id
+  attribute :child_ids
+
   belongs_to :advisor, serializer: UserSerializer
   belongs_to :sales, serializer: UserSerializer
-
-  attribute :child_ids
 end

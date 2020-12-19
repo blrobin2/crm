@@ -44,11 +44,11 @@ const renderTerritoryNode = (territoryId: EntityId, onTerritoryClick: (oldParent
 );
 
 const BackButton = ({ onBackButtonClick }: { onBackButtonClick: () => void }) => (
-  <button className="btn btn-info" onClick={onBackButtonClick}>&uarr; Back</button>
+  <button className="btn btn-info" data-testid="back-button" onClick={onBackButtonClick}>&uarr; Back</button>
 );
 
 interface TerritoriesTreeLayoutParams {
-  children: JSX.Element | JSX.Element[];
+  children: JSX.Element;
   onPageChange: (parentId: number) => OnPaginationPageChange;
   showBackButton: boolean;
   onBackButtonClick: () => void
@@ -75,9 +75,7 @@ const TerritoriesTreeLayout = ({
         totalCount={totalCount}
         onPageChange={onPageChange(currentTerritoryId)}
       />
-      <ListGroup>
-        {children}
-      </ListGroup>
+      {children}
       <Pagination
         pageCount={totalPages}
         currentPage={currentPage}
@@ -107,13 +105,18 @@ export const TerritoriesTree = ({
   const handlePageChange: (parentId: number) => OnPaginationPageChange = parentId =>
     withPageChange((pageNumber: number) => dispatch(fetchTerritories({ parentId, pageNumber })));
 
-  const content = (() => {
+  const content: JSX.Element = (() => {
     switch (territoriesStatus) {
       case Status.LOADING:
         return <div className="loader">Loading&hellip;</div>;
       case Status.SUCCEEDED: {
         const onClick = onTerritoryClick(dispatch, parentChain, setParentChain);
-        return territoryIds.map(tId => renderTerritoryNode(tId, onClick));
+        const territoryNodes = territoryIds.map(tId => renderTerritoryNode(tId, onClick));
+        return (
+          <ListGroup>
+            {territoryNodes}
+          </ListGroup>
+        );
       }
       case Status.FAILED:
         return <div className="alert alert-danger">{territoriesError}</div>;

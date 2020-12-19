@@ -10,7 +10,7 @@ describe('SignInForm', () => {
   renderTest('SignInForm', SignInForm)
 
   it('submits the inputted values', async () => {
-    const mockHandleFormSubmit = jest.fn(_dispatch => _stuff => {});
+    const mockHandleFormSubmit = jest.fn(_dispatch => (_stuff, _obj) => Promise.resolve());
     render(
       <AppProvider>
         <SignInForm handleFormSubmit={mockHandleFormSubmit} />
