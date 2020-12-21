@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_154042) do
+ActiveRecord::Schema.define(version: 2020_12_21_162553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,35 @@ ActiveRecord::Schema.define(version: 2020_12_16_154042) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_jti_claims_on_user_id"
+  end
+
+  create_table "price_book_entries", force: :cascade do |t|
+    t.decimal "list_price", precision: 8, scale: 2, null: false
+    t.boolean "is_active", default: true, null: false
+    t.bigint "price_book_id"
+    t.bigint "product_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["price_book_id"], name: "index_price_book_entries_on_price_book_id"
+    t.index ["product_id"], name: "index_price_book_entries_on_product_id"
+  end
+
+  create_table "price_books", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", default: "", null: false
+    t.boolean "is_active", default: true, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "is_active", default: true, null: false
+    t.string "code", null: false
+    t.text "description", default: "", null: false
+    t.string "quantity_unit_of_measure", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "territories", force: :cascade do |t|
@@ -65,6 +94,8 @@ ActiveRecord::Schema.define(version: 2020_12_16_154042) do
   end
 
   add_foreign_key "jti_claims", "users"
+  add_foreign_key "price_book_entries", "price_books"
+  add_foreign_key "price_book_entries", "products"
   add_foreign_key "territories", "users", column: "advisor_id"
   add_foreign_key "territories", "users", column: "sales_id"
 end
