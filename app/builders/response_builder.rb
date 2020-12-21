@@ -45,8 +45,8 @@ class ResponseBuilder
   def fields
     return nil unless params[:fields]
 
-    params[:fields].transform_values do |fields|
-      fields.split(',')
+    params[:fields].to_h.symbolize_keys.transform_values do |fields|
+      fields.split(',').map(&:to_sym)
     end
   end
 

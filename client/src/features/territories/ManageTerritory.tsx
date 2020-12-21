@@ -19,6 +19,6 @@ export const ManageTerritory = () => {
   }
 
   return (
-    <h1>Edit {territory.attributes.name}</h1>
+    <h1>{territory.attributes.name} User Assignments</h1>
   );
 };

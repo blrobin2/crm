@@ -3,7 +3,7 @@ def register_renderers
     ::ActionController::Renderers.add(:jsonapi) do |resources, opts|
       serializer = opts.delete(:serializer)
       options = clear_options(opts)
-      serializer.new(resources, options).to_json
+      serializer.new(resources, options).serializable_hash.to_json
     end
   end
 end
