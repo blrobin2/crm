@@ -2,6 +2,7 @@ import React from 'react';
 import { EntityId } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { Link } from 'react-router-dom';
 
 import { RootState } from '../../app/store';
 import { selectTerritoryById } from './territoriesSlice';
@@ -29,6 +30,11 @@ export const TerritoryNode = ({ territoryId, onTerritoryClick }: TerritoryNodePa
             <button onClick={() => onTerritoryClick(parentId || '', eventKey)} className="btn btn-link" data-testid="territory-node">
               {territory.attributes.name}
             </button>
+            <div className="col">
+              <Link to={`/territories/${eventKey}/edit`}>
+                Manage Team Assignments
+              </Link>
+            </div>
           </div>
         </div>
       );

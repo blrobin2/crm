@@ -1,7 +1,7 @@
 module Crm
   class UsersQuery < BaseQuery
     def scope
-      User
+      super(User)
     end
 
     def where_conditions

@@ -14,7 +14,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#territories' do
-    let(:territory) { create(:territory) }
+    let(:territory) { create(:territory_with_assignments) }
     let(:sales_person) { territory.sales_person }
     let(:advisor) { territory.advisor }
     let(:admin) { create(:admin) }

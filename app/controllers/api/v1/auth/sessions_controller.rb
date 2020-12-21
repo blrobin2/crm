@@ -4,10 +4,6 @@ module Api
       class SessionsController < ApiController
         before_action :authenticate_api_user!, only: [:destroy]
 
-        def index
-          render_jsonapi(query_jsonapi.all)
-        end
-
         def create
           authorization_header(session_form) if session_form.save
 

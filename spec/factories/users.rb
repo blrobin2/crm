@@ -17,9 +17,21 @@ FactoryBot.define do
 
   factory :advisor, parent: :user do
     role { Role.advisor }
+
+    trait :with_territories do
+      after :create do |user|
+        create_list(:territory, 3, advisor: user)
+      end
+    end
   end
 
   factory :sales, parent: :user do
     role { Role.sales }
+
+    trait :with_territories do
+      after :create do |user|
+        create_list(:territory, 3, sales: user)
+      end
+    end
   end
 end

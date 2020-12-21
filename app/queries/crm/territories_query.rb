@@ -1,7 +1,7 @@
 module Crm
   class TerritoriesQuery < BaseQuery
     def scope
-      Territory
+      super(Territory)
     end
 
     def filter_conditions

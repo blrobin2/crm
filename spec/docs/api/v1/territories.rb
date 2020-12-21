@@ -14,6 +14,10 @@ module Docs
         document :index do
           action 'List territories'
         end
+
+        document :update do
+          action 'Assign users to territory'
+        end
       end
     end
   end

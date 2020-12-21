@@ -41,8 +41,8 @@ module Crm
       scope.find_by!(by => id || params[:id])
     end
 
-    def scope
-      raise NotImplementedError
+    def scope(scope)
+      "#{scope}Policy".constantize::Scope.new(user, scope).resolve
     end
   end
 end
