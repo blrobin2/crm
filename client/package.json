@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@disruptph/json-api-normalizer": "^1.2.9",
-    "@reduxjs/toolkit": "^1.2.5",
+    "@reduxjs/toolkit": "^1.6.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -23,8 +23,8 @@
     "fetch-mock": "^9.11.0",
     "fetch-mock-jest": "^1.5.1",
     "formik": "^2.2.5",
-    "lodash": "^4.17.20",
-    "node-fetch": "^2.6.1",
+    "lodash": "^4.17.21",
+    "node-fetch": "^2.6.7",
     "qs": "^6.9.4",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
@@ -32,7 +32,7 @@
     "react-paginate": "^6.5.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.1",
+    "react-scripts": "5.0.0",
     "redux-mock-store": "^1.5.4",
     "typescript": "~3.8.2"
   },
