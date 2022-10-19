@@ -25,11 +25,11 @@ module Crm
       @all_without_pagination ||=
         scope
         .includes(include_conditions)
-        .joins(join_conditions)
+        .includes(join_conditions)
         .select(select_conditions)
         .where(scopes)
         .where(wheres)
-        .yield_self do |relation|
+        .then do |relation|
           filters.reduce(relation) { |rel, filter| rel.where(filter) }
         end
         .group(group_conditions)

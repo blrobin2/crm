@@ -29,7 +29,7 @@ module Api
         end
 
         def jti_claim
-          JWTSerializer.decode(request.headers['authorization'].split(' ').last)['jti']
+          JWTSerializer.decode(request.headers['authorization'].split.last)['jti']
         end
 
         def query_class

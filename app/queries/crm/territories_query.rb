@@ -10,6 +10,10 @@ module Crm
       }
     end
 
+    def join_conditions
+      [:advisor, :sales]
+    end
+
     def default_sort
       [name: :asc]
     end

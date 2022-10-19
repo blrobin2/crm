@@ -7,5 +7,7 @@ class CreatePriceBookEntries < ActiveRecord::Migration[6.0]
       t.belongs_to :product, foreign_key: { to_table: :products }
       t.timestamps
     end
+
+    add_index :price_book_entries, [:price_book_id, :product_id]
   end
 end

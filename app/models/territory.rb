@@ -10,6 +10,8 @@ class Territory < ApplicationRecord
   validate :sales_must_be_sales
 
   alias_attribute :sales_person, :sales
+  delegate :name, to: :advisor, prefix: true, allow_nil: true
+  delegate :name, to: :sales_person, prefix: true, allow_nil: true
 
   private
 

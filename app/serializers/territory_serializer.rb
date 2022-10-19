@@ -6,6 +6,8 @@ class TerritorySerializer < BaseSerializer
   end
   attribute :parent_id
   attribute :child_ids
+  attribute :advisor_name
+  attribute :sales_person_name
 
   belongs_to :advisor, serializer: UserSerializer
   belongs_to :sales, serializer: UserSerializer

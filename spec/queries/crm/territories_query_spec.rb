@@ -44,7 +44,7 @@ RSpec.describe Crm::TerritoriesQuery do
 
     it 'fetches territories without a parent_id' do
       territories = territories_query.all
-      expect(territories.pluck(&:parent_id).reject(&:nil?)).to be_empty
+      expect(territories.pluck(&:parent_id).compact).to be_empty
     end
   end
 end

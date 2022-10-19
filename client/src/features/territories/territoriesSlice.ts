@@ -119,3 +119,14 @@ export const selectTerritoryParentId = createSelector<RootState, Territory[], nu
   selectAllTerritories,
   territories => territories.length > 0 ? territories[0].attributes.parentId as number : -1
 );
+export const selectTerritoryAdvisorLink = createSelector(
+  selectTerritoryById,
+  territory => {
+    if (!territory) return undefined;
+
+    const data = territory.relationships.advisor.data;
+    if (!data) return undefined;
+
+    return `/${data.type}/${data.id}`;
+  }
+);

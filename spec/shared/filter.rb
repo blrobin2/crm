@@ -1,8 +1,8 @@
 RSpec.shared_examples 'filter' do
-  let(:params) { ActionController::Parameters.new(filter: { 'all_the_joes': true }) }
+  let(:params) { ActionController::Parameters.new(filter: { all_the_joes: true }) }
 
   it 'parses the keys to be filtered from params' do
-    allow(instance).to receive(:filter_conditions).and_return(all_the_joes: { 'first_name': 'Joe' })
+    allow(instance).to receive(:filter_conditions).and_return(all_the_joes: { first_name: 'Joe' })
     expect(instance.filters).to match([{ first_name: 'Joe' }])
   end
 

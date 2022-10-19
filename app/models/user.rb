@@ -15,9 +15,13 @@ class User < ApplicationRecord
            dependent: :nullify,
            inverse_of: :sales
 
-  enumeration :role
+  enumeration :role, class_name: UserRole
   validates :role, presence: true
   delegate :admin?, :advisor?, :sales?, to: :role
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 
   def territories
     if sales?

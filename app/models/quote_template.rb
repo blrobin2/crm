@@ -1,0 +1,2 @@
+class QuoteTemplate < ApplicationRecord
+end

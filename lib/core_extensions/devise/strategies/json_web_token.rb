@@ -23,7 +23,7 @@ module Devise
 
       def claims
         @claims ||= begin
-          stragegy, token = request.headers['authorization'].split(' ')
+          stragegy, token = request.headers['authorization'].split
           JWTSerializer.decode(token) if stragegy == 'Bearer'
         end
       end
