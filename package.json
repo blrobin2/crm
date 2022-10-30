@@ -12,6 +12,6 @@
     "heroku-postbuild": "yarn build && yarn deploy"
   },
   "dependencies": {
-    "@types/react-paginate": "^6.2.1"
+    "@types/react-paginate": "^6.2.3"
   }
 }
