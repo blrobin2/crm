@@ -24,6 +24,7 @@ PreCommit:
     enabled: true
     exclude:
       - '**/db/structure.sql'
+      - 'node_modules/**'
 
   HardTabs:
     enabled: true

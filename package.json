@@ -2,8 +2,8 @@
   "name": "crm",
   "license": "MIT",
   "engines": {
-    "node": "14.3.0",
-    "yarn": "1.22.10"
+    "node": "16.13.1",
+    "yarn": "1.22.19"
   },
   "scripts": {
     "test": "yarn --cwd client test",
