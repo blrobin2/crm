@@ -23,7 +23,7 @@ gem 'phonelib'
 gem 'puma', '~> 4.1'
 gem 'pundit'
 gem 'rack-cors'
-gem 'rails', '~> 6.0.3', '>= 6.0.5.1'
+gem 'rails', '~> 6.1.7', '>= 6.1.7.3'
 gem 'scenic'
 
 group :development, :test do
