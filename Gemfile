@@ -8,7 +8,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'closure_tree'
 gem 'devise'
 gem 'email_validator'
-gem 'enumerations'
+gem 'enumerations', '>= 2.5.4'
 gem 'figaro'
 gem 'honeybadger', '~> 4.0'
 gem 'jsonapi_parameters'
