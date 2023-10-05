@@ -6,7 +6,7 @@ ruby '2.7.1'
 gem 'active_type'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'closure_tree'
-gem 'devise'
+gem 'devise', '>= 4.9.0'
 gem 'email_validator'
 gem 'enumerations'
 gem 'figaro'
@@ -23,15 +23,15 @@ gem 'phonelib'
 gem 'puma', '~> 4.1'
 gem 'pundit'
 gem 'rack-cors'
-gem 'rails', '~> 6.0.3', '>= 6.0.5.1'
-gem 'scenic'
+gem 'rails', '~> 7.1.0'
+gem 'scenic', '>= 1.7.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'dox', require: false
   gem 'factory_bot_rails'
   gem 'faker'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '>= 6.0.0'
 end
 
 group :development do
