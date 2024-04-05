@@ -6,7 +6,7 @@ ruby '2.7.1'
 gem 'active_type'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'closure_tree'
-gem 'devise'
+gem 'devise', '>= 4.9.0'
 gem 'email_validator'
 gem 'enumerations'
 gem 'figaro'
@@ -17,26 +17,26 @@ gem 'jsonapi-serializer'
 gem 'jwt'
 gem 'kaminari'
 gem 'memoist'
-gem 'paper_trail'
+gem 'paper_trail', '>= 14.0.0'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'phonelib'
 gem 'puma', '~> 4.1'
 gem 'pundit'
-gem 'rack-cors'
-gem 'rails', '~> 6.0.3', '>= 6.0.5.1'
-gem 'scenic'
+gem 'rack-cors', '>= 2.0.0'
+gem 'rails', '~> 7.0.8', '>= 7.0.8.1'
+gem 'scenic', '>= 1.7.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'dox', require: false
-  gem 'factory_bot_rails'
+  gem 'factory_bot_rails', '>= 6.3.0'
   gem 'faker'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '>= 6.0.0'
 end
 
 group :development do
   gem 'annotate'
-  gem 'better_errors'
+  gem 'better_errors', '>= 2.10.0'
   gem 'binding_of_caller'
   gem 'brakeman', require: false
   gem 'bullet'
@@ -44,7 +44,7 @@ group :development do
   gem 'listen', '~> 3.2'
   gem 'overcommit', require: false
   gem 'rubocop', require: false
-  gem 'rubocop-rails', require: false
+  gem 'rubocop-rails', '>= 2.17.0', require: false
   gem 'rubocop-rspec', require: false
 end
 
