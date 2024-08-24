@@ -42,10 +42,10 @@ group :development do
   gem 'bullet'
   gem 'bundler-audit', require: false
   gem 'listen', '~> 3.2'
-  gem 'overcommit', require: false
-  gem 'rubocop', require: false
-  gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec', require: false
+  gem 'overcommit', '>= 0.60.0', require: false
+  gem 'rubocop', '>= 1.37.0', require: false
+  gem 'rubocop-rails', '>= 2.17.0', require: false
+  gem 'rubocop-rspec', '>= 2.14.0', require: false
 end
 
 group :test do
@@ -56,5 +56,5 @@ group :test do
   gem 'simplecov', '< 0.18', require: false
   gem 'timecop'
   gem 'vcr'
-  gem 'webmock'
+  gem 'webmock', '>= 3.19.0'
 end
