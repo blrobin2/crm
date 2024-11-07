@@ -42,7 +42,7 @@ group :development do
   gem 'bullet'
   gem 'bundler-audit', require: false
   gem 'listen', '~> 3.2'
-  gem 'overcommit', require: false
+  gem 'overcommit', '>= 0.64.1', require: false
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
