@@ -23,7 +23,7 @@ gem 'phonelib'
 gem 'puma', '~> 4.1'
 gem 'pundit'
 gem 'rack-cors'
-gem 'rails', '~> 6.0.3', '>= 6.0.5.1'
+gem 'rails', '~> 7.0.0'
 gem 'scenic'
 
 group :development, :test do
@@ -45,7 +45,7 @@ group :development do
   gem 'overcommit', require: false
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec', require: false
+  gem 'rubocop-rspec', '>= 3.5.0', require: false
 end
 
 group :test do
