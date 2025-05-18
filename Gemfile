@@ -22,7 +22,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'phonelib'
 gem 'puma', '~> 4.1'
 gem 'pundit'
-gem 'rack-cors'
+gem 'rack-cors', '>= 3.0.0'
 gem 'rails', '~> 6.0.3', '>= 6.0.5.1'
 gem 'scenic'
 
