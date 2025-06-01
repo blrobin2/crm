@@ -5,7 +5,7 @@ ruby '2.7.1'
 
 gem 'active_type'
 gem 'bootsnap', '>= 1.4.2', require: false
-gem 'closure_tree'
+gem 'closure_tree', '>= 8.0.0'
 gem 'devise'
 gem 'email_validator'
 gem 'enumerations'
