@@ -6,10 +6,10 @@ ruby '2.7.1'
 gem 'active_type'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'closure_tree'
-gem 'devise'
+gem 'devise', '>= 4.9.0'
 gem 'email_validator'
 gem 'enumerations'
-gem 'figaro'
+gem 'figaro', '>= 1.3.0'
 gem 'honeybadger', '~> 4.0'
 gem 'jsonapi_parameters'
 gem 'json_api_responders'
@@ -23,15 +23,15 @@ gem 'phonelib'
 gem 'puma', '~> 4.1'
 gem 'pundit'
 gem 'rack-cors'
-gem 'rails', '~> 6.0.3', '>= 6.0.5.1'
-gem 'scenic'
+gem 'rails', '~> 6.0.6', '>= 6.0.6.1'
+gem 'scenic', '>= 1.7.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'dox', require: false
-  gem 'factory_bot_rails'
+  gem 'factory_bot_rails', '>= 6.3.0'
   gem 'faker'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '>= 6.0.0'
 end
 
 group :development do
@@ -40,7 +40,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'brakeman', require: false
   gem 'bullet'
-  gem 'bundler-audit', require: false
+  gem 'bundler-audit', '>= 0.9.2', require: false
   gem 'listen', '~> 3.2'
   gem 'overcommit', require: false
   gem 'rubocop', require: false
