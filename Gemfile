@@ -3,12 +3,12 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
-gem 'active_type'
+gem 'active_type', '>= 2.3.2'
 gem 'bootsnap', '>= 1.4.2', require: false
-gem 'closure_tree'
+gem 'closure_tree', '>= 8.0.0'
 gem 'devise'
 gem 'email_validator'
-gem 'enumerations'
+gem 'enumerations', '>= 2.5.4'
 gem 'figaro'
 gem 'honeybadger', '~> 4.0'
 gem 'jsonapi_parameters'
@@ -17,14 +17,14 @@ gem 'jsonapi-serializer'
 gem 'jwt'
 gem 'kaminari'
 gem 'memoist'
-gem 'paper_trail'
+gem 'paper_trail', '>= 14.0.0'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'phonelib'
 gem 'puma', '~> 4.1'
 gem 'pundit'
 gem 'rack-cors'
-gem 'rails', '~> 6.0.3', '>= 6.0.5.1'
-gem 'scenic'
+gem 'rails', '~> 7.1.5', '>= 7.1.5.2'
+gem 'scenic', '>= 1.7.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
