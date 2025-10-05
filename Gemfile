@@ -43,9 +43,9 @@ group :development do
   gem 'bundler-audit', require: false
   gem 'listen', '~> 3.2'
   gem 'overcommit', require: false
-  gem 'rubocop', require: false
-  gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec', require: false
+  gem 'rubocop', '>= 1.66.0', require: false
+  gem 'rubocop-rails', '>= 2.17.0', require: false
+  gem 'rubocop-rspec', '>= 2.14.0', require: false
 end
 
 group :test do
