@@ -23,7 +23,7 @@
     "fetch-mock": "^9.11.0",
     "fetch-mock-jest": "^1.5.1",
     "formik": "^2.2.5",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "node-fetch": "^2.6.7",
     "qs": "^6.9.4",
     "react": "^17.0.1",
